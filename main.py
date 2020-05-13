@@ -20,3 +20,5 @@ result = "Complete"
 print(r.filter(data, "'GN/LS' >= 10", "'RESULT' ==", result, "'YARD LN' < 0"))
 print(data.loc[(data["GN/LS"] >= 10) & (data["RESULT"] == result) & (data["YARD LN"] > 0)])
 
+print(r.arrange(data, "desc(GN/LS)", "DN"))
+print(data.sort_values(["GN/LS", "DN"], ascending=[True, False]))

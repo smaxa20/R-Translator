@@ -63,3 +63,25 @@ def filter(*args):
         
     return(df)
 
+
+# Sort the dataframe by the specified columns
+# It will sort by the first column first, then subsequent columns within that sort
+def arrange(*args):
+    # The first argument must be the dataframe
+    df = args[0]
+    # All subsequent arguments must be the columns you'd like to sort by
+    conditions = args[1:len(args)]
+    columns = []
+    orders = []
+    for col in conditions:
+        # If you want the column to be arranged in descending order you must wrap it in desc() -> e.g. desc(my column)
+        if "(" in col and ")" in col and col[0:4] == "desc":
+            orders.append(False)
+            columns.append(col[5:len(col)-1])
+        else:
+            orders.append(True)
+            columns.append(col)
+
+    # both arguments take lists which we've build side-by-side
+    df = df.sort_values(columns, ascending=orders)
+    return(df)
