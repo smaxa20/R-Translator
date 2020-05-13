@@ -14,3 +14,9 @@ data = data.reset_index()
 del data["index"]
 data = data.dropna(how = "all")
 data = data.fillna(0)
+
+result = "Complete"
+
+print(r.filter(data, "'GN/LS' >= 10", "'RESULT' ==", result, "'YARD LN' < 0"))
+print(data.loc[(data["GN/LS"] >= 10) & (data["RESULT"] == result) & (data["YARD LN"] > 0)])
+
