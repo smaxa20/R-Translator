@@ -49,16 +49,10 @@ print(data.rename(columns={"ODK":"odk"}))
 print()
 print(data.rename(columns={"odk":"ODK"}))
 
+
 #mutate()
 print("\n\nMutate **********\n")
-print(r.mutate(data, "test1=LN-DIST"))
-print()
-#print(data.mutate(test = dn - ln, test1 = dn * 25))
-print(data.assign(test = lambda x: x.DN - x.DIST))
-
-#mutate2()
-print("\n\nMutate2 **********\n")
-print(r.mutate2(data, "'1ST MRK' = 'YARD LN' - 'DIST'", "'YDLN' = '1ST MRK' + 'DIST'", "'MEGA GAIN' = 'GN/LS' * '10'"))
+print(r.mutate(data, "'1ST MRK' = 'YARD LN' - 'DIST'", "'YDLN' = '1ST MRK' + 'DIST'", "'MEGA GAIN' = 'GN/LS' * '10'"))
 print()
 #mutate() - pandas
 print(data.assign(test = lambda x: x.DN - x.DIST).assign(test1 = lambda x: x.test + x.DIST).assign(test2 = lambda x: x.DN * 10))
