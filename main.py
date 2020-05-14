@@ -21,6 +21,7 @@ result = "Complete"
 print("Filter **********\n")
 print(r.filter(data, "'GN/LS' >= 10", "'RESULT' ==", result, "'YARD LN' < 0"))
 print()
+
 #filter() - pandas
 print(data.loc[(data["GN/LS"] >= 10) & (data["RESULT"] == result) & (data["YARD LN"] < 0)])
 
@@ -28,6 +29,7 @@ print(data.loc[(data["GN/LS"] >= 10) & (data["RESULT"] == result) & (data["YARD 
 print("\n\nArrange **********\n")
 print(r.arrange(data, "desc(GN/LS)", "DN"))
 print()
+
 #arrange() - pandas
 print(data.sort_values(["GN/LS", "DN"], ascending=[True, False]))
 
@@ -35,47 +37,65 @@ print(data.sort_values(["GN/LS", "DN"], ascending=[True, False]))
 print("\n\nSelect **********\n")
 print(r.select(data, "ODK", "HASH"))
 print()
+
 #select() - pandas
 print(data[['ODK','HASH']])
+print()
 
 #rename() - translatR
 print("\n\nRename **********\n")
-print(r.rename(data, {'ODK':'odk'}, {'HASH':'hash'})) #okay that it isnt the exact syntax?
+print(r.rename(data, {'ODK':'odk'}, {'HASH':'hash'})) 
 print()
-print(r.rename(data, {'odk':'ODK'}, {'hash':'HASH'}))
-print()
+
 #rename() - pandas [rename and then set name back]
-print(data.rename(columns={"ODK":"odk"}))
+print(data.rename(columns={"ODK":"odk"})) #rename
 print()
-print(data.rename(columns={"odk":"ODK"}))
 
 
 #mutate()
 print("\n\nMutate **********\n")
 print(r.mutate(data, "'1ST MRK' = 'YARD LN' - 'DIST'", "'YDLN' = '1ST MRK' + 'DIST'", "'MEGA GAIN' = 'GN/LS' * '10'"))
 print()
+
 #mutate() - pandas
 print(data.assign(test = lambda x: x.DN - x.DIST).assign(test1 = lambda x: x.test + x.DIST).assign(test2 = lambda x: x.DN * 10))
+print()
 
-#transmute()
+#transmute() - translatR
+print("Transmute **********\n")
 print(r.transmute(data, "'1ST MRK' = 'YARD LN' - 'DIST'", "'YDLN' = '1ST MRK' + 'DIST'", "'MEGA GAIN' = 'GN/LS' * '10'"))
+print()
+
 #transmute() - pandas
-#data["1ST MRK"] = data["YARD LN"] - data["DIST"])
-#print(data.head())
+tempdata = data
+data = data.assign(test = lambda x: x.DN - x.DIST).assign(test1 = lambda x: x.test + x.DIST).assign(test2 = lambda x: x.DN * 10)
+tempData = data.rename(columns={"test":"1ST MRK", "test1":"YDLN", "test2":"MEGA GAIN"}) #rename
+print(tempData[['1ST MRK', 'YDLN', 'MEGA GAIN']])
+print()
 
 #summarise() - translatR
-#ORDER: dataframe, new column name, command, column with the data
-print(r.summarise(data, "'mean_of_DIST' = 'mean'('DIST')")) 
+print("Summarise **********\n")
+print(r.summarise(data, "'mean_of_DIST' = 'mean'('DIST')")) #ORDER: dataframe, new column name, command, column with the data
+print()
+
 #summarise() - pandas
-print(data.describe())
 print("mean_of_DIST = " + str(data['DIST'].mean()))
+print()
 
 #sample_n() - translatR
+print("sample_n **********\n")
 print(r.sample_n(data, 10))
+print()
+
 #sample_n() = pandas
 print(data.sample(n=10, random_state=1))
+print()
 
 #sample_f() - translatR
+print("sample_f **********\n")
 print(r.sample_f(data, 0.1))
+print()
+
 #sample_f() - pandas
 print(data.sample(frac = .1))
+print()

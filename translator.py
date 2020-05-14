@@ -250,7 +250,6 @@ def sample_f(*args):
 	percentageSize = args[1]
 	length = df.shape[0]
 	numOfSample = math.ceil(percentageSize * length)
-	print(numOfSample)
 	sample = random.sample(range(0, length), numOfSample)
 	df = df.iloc[sample]
 	return df
