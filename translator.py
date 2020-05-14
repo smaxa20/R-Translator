@@ -1,6 +1,7 @@
 import pandas as pd
 import operator
-
+import random
+import math
 
 # https://stackoverflow.com/a/2262424/9968135
 # Decorator for ignoring exception from a function
@@ -234,6 +235,26 @@ def summarise(*args):
 	temp = str(new) + " " + str(temp)
 	return temp
 
+#sample_n() - take a random sample of rows [size of sample specified in args]
+def sample_n(*args):
+	df = args[0]
+	sampleSize = args[1]
+	length = df.shape[0]
+	sample = random.sample(range(0, length), sampleSize)
+	df = df.iloc[sample]
+	return df
+	
+#sample_f()
+def sample_f(*args):
+	df = args[0]
+	percentageSize = args[1]
+	length = df.shape[0]
+	numOfSample = math.ceil(percentageSize * length)
+	print(numOfSample)
+	sample = random.sample(range(0, length), numOfSample)
+	df = df.iloc[sample]
+	return df
+	
 		
 		
 		

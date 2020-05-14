@@ -69,3 +69,13 @@ print(r.summarise(data, "'mean_of_DIST' = 'mean'('DIST')"))
 #summarise() - pandas
 print(data.describe())
 print("mean_of_DIST = " + str(data['DIST'].mean()))
+
+#sample_n() - translatR
+print(r.sample_n(data, 10))
+#sample_n() = pandas
+print(data.sample(n=10, random_state=1))
+
+#sample_f() - translatR
+print(r.sample_f(data, 0.1))
+#sample_f() - pandas
+print(data.sample(frac = .1))
