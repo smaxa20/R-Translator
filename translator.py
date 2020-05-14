@@ -90,14 +90,9 @@ def arrange(*args):
 def select(*args):
 	#the first argument must be the data frame
 	df = args[0]
-	#the following arguments are the various column names
-	conditions = args[1:len(args)]
-	argStr = []
-	for col in conditions:
-		#format the intended column names
-		argStr.append(col) 
-	#grab only those columns
-	df = df.loc[:, argStr]
+	# the following arguments are the various column names
+	# grab only those columns
+	df = df.loc[:, args[1:len(args)]]
 	return(df)
 	
 # Rename any number of select columns
@@ -128,6 +123,8 @@ def mutate(*args):
 		print(colName)
 		print(colArg)
 		
+		i = 0
+		nestedCount = 0
 		while i < len(col):
 			if col[i] == "(":
 				nestedCount += 1
@@ -177,16 +174,40 @@ def mutate(*args):
 		print(df)
 		
 	
+def mutate2(*args):
+	# The first argument must be the dataframe
+	df = args[0]
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	# https://stackoverflow.com/a/2983144/9968135
+	ops = {
+        "+" : operator.add,
+        "-" : operator.sub,
+        "*" : operator.mul,
+        "/" : operator.truediv,
+    }
+
+	i = 1
+	while i < len(args):
+		# Split a condition into it's four parts, the new column name, the operator, and the two terms to be mutated
+        # All column names and values must be surrounded by '' -> e.g. 'my column', '10'
+		terms = args[i].split("'")
+		new = terms[1]
+
+		# If a term is an int we want to cast it to an int, but if it's not we want to keep it as a column
+		if isinstance(tryInt(terms[3]), int):
+			term1 = int(terms[3])
+		else:
+			term1 = df[terms[3]]
+		if isinstance(tryInt(terms[5]), int):
+			term2 = int(terms[5])
+		else:
+			term2 = df[terms[5]]
+
+		op = ops[terms[4].strip()]
+
+		# Assign each new column to the mutation of the two terms with respect to the operator
+		df = df.assign(temp = op(term1, term2))
+		# Rename the new column to what the developer wanted it to be
+		df = df.rename(columns={"temp" : new})
+		i += 1
+	return df
