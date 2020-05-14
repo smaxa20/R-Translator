@@ -85,3 +85,47 @@ def arrange(*args):
     # both arguments take lists which we've build side-by-side
     df = df.sort_values(columns, ascending=orders)
     return(df)
+	
+# Select certain columns 
+def select(*args):
+	#the first argument must be the data frame
+	df = args[0]
+	#the following arguments are the various column names
+	conditions = args[1:len(args)]
+	argStr = []
+	for col in conditions:
+		#format the intended column names
+		argStr.append(col) 
+	#grab only those columns
+	df = df.loc[:, argStr]
+	return(df)
+	
+# Rename any number of select columns
+def rename(*args):
+	df = args[0]
+	#the following arguments are the various column names with what they are to be substituted with
+	conditions = args[1:] 
+	#create a local dictionary to hold the renaming variables
+	argStr = {} 
+	for col in conditions:
+		#update the dictionary
+		argStr.update(col) 
+	#go through renaming process
+	df = df.rename(columns=argStr) 
+	return(df)
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
