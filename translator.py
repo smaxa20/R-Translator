@@ -119,10 +119,48 @@ def mutate(*args):
 	df = args[0]
 	#all subsequent information is new column creation
 	conditions = args[1:]
+	ops = ["+", "/", "-", "*"]
+	values = []
 	for col in conditions:
 		idx = col.find("=")
 		colName = col[:idx]
 		colArg = col[idx+1:]
+		print(colName)
+		print(colArg)
+		
+		while i < len(col):
+			if col[i] == "(":
+				nestedCount += 1
+			i+=1
+		while nestedCount != 0:
+			splitOp = col[col.rfind("(")+1:]
+			print(splitOp)
+			for op in ops:
+				if splitOp.find(op) != -1:
+					operator = op
+					idx = splitOp.find(op)
+			print(operator)
+			for index, row in df.iterrows():
+				print(row)
+				v1 = row.DN
+				v2 = row.DIST
+				if (operator == "+"):
+					input = v1 + v2
+				elif (operator == "-"):
+					input = v1 - v2
+				elif (operator == "/"):
+					input = v1 / v2
+				elif (operator == "*"):
+					input = v1 * v2
+				print("total: " + str(input))
+				newVal = input
+			values.append(input)
+			
+			df[colName] = values
+			print(df)
+			
+		
+		print(df)
 		i = 0
 		nestedCount = 0
 		while i < len(col):
