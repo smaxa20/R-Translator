@@ -147,3 +147,45 @@ def mutate(*args):
 		df = df.rename(columns={"temp" : new})
 		i += 1
 	return df
+	
+def transmute(*args):
+	# The first argument must be the dataframe
+	df = args[0]
+	data = pd.DataFrame()
+	names = []
+	# https://stackoverflow.com/a/2983144/9968135
+	ops = {
+        "+" : operator.add,
+        "-" : operator.sub,
+        "*" : operator.mul,
+        "/" : operator.truediv,
+    }
+
+	i = 1
+	while i < len(args):
+		# Split a condition into it's four parts, the new column name, the operator, and the two terms to be mutated
+        # All column names and values must be surrounded by '' -> e.g. 'my column', '10'
+		terms = args[i].split("'")
+		new = terms[1]
+
+		# If a term is an int we want to cast it to an int, but if it's not we want to keep it as a column
+		if isinstance(tryInt(terms[3]), int):
+			term1 = int(terms[3])
+		else:
+			term1 = df[terms[3]]
+		if isinstance(tryInt(terms[5]), int):
+			term2 = int(terms[5])
+		else:
+			term2 = df[terms[5]]
+
+		op = ops[terms[4].strip()]
+
+		# Assign each new column to the mutation of the two terms with respect to the operator
+		df = df.assign(temp = op(term1, term2))
+		# Rename the new column to what the developer wanted it to be
+		df = df.rename(columns={"temp" : new})
+		names.append(new)
+		i += 1
+	df = select(df, names)
+	print(df)
+	return df
