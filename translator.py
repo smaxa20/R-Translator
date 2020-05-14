@@ -151,7 +151,6 @@ def mutate(*args):
 def transmute(*args):
 	# The first argument must be the dataframe
 	df = args[0]
-	data = pd.DataFrame()
 	names = []
 	# https://stackoverflow.com/a/2983144/9968135
 	ops = {
@@ -186,6 +185,6 @@ def transmute(*args):
 		df = df.rename(columns={"temp" : new})
 		names.append(new)
 		i += 1
-	df = select(df, names)
-	print(df)
+	df = df[names]
+	# print(df)
 	return df
