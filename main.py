@@ -33,11 +33,13 @@ print(r.select(data, "ODK", "HASH"))
 print(data[['ODK','HASH']])
 
 #rename() - translatR
-print(r.rename(data, {'ODK':'odk'}, {'HASH':'hash'}))
+print(r.rename(data, {'ODK':'odk'}, {'HASH':'hash'})) #okay that it isnt the exact syntax?
 print(r.rename(data, {'odk':'ODK'}, {'hash':'HASH'}))
 #rename() - pandas [rename and then set name back]
 print(data.rename(columns={"ODK":"odk"}))
 print(data.rename(columns={"odk":"ODK"}))
 
 #mutate()
+#print(r.mutate(data, "test=(dn-ln)", "test1=dn*25"))
+print(data.mutate(data, "test=(dn-ln)", "test1=dn*25"))
 #transmute()

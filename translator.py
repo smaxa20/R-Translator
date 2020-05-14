@@ -114,7 +114,30 @@ def rename(*args):
 	df = df.rename(columns=argStr) 
 	return(df)
 	
-
+# Mutate - Add columns and populate with data from existing columns. In can use a column just generated to create a new one in all one call
+def mutate(*args):
+	df = args[0]
+	#all subsequent information is new column creation
+	conditions = args[1:]
+	for col in conditions:
+		idx = col.find("=")
+		colName = col[:idx]
+		colArg = col[idx+1:]
+		i = 0
+		nestedCount = 0
+		while i < len(col):
+			if col[i] == "(":
+				nestedCount += 1
+			i+=1
+		ops = ["+", "/", "-", "*"]
+		if nestedCount != 0:
+			splitOp = col[col.rfind("(")+1:]
+			temp = str(colName + "=" + splitOp)
+			df = mutate(df, splitOp)
+			col = splitOp
+			nestedCount -=1
+		print(df)
+		
 	
 	
 	
