@@ -186,5 +186,62 @@ def transmute(*args):
 		names.append(new)
 		i += 1
 	df = df[names]
-	# print(df)
 	return df
+	
+#summarise 
+def summarise(*args):
+	df = args[0]
+	i = 1
+	while i < len(args):
+		terms = args[i].split("'")
+		new = terms[1]
+		func = terms[3]
+		col = terms[5]
+		#determine which statistical analysis tool is to be used
+		if func == "mean":
+			temp = df[col].mean()
+		elif func == "median":
+			temp = df[col].median()		
+		elif func == "sd":
+			temp = df[col].std()		
+		elif func == "IQR":
+			Q1 = df[col].quantile(0.25)
+			Q3 = df[col].quantile(0.75)
+			temp = Q3 - Q1	
+		elif func == "mad":
+			temp = df[col].mad()
+		elif func == "min":
+			temp = df[col].min()		
+		elif func == "max":
+			temp = df[col].max()		
+		elif func == "quantile":
+			temp = df[col].quantile()
+		elif func == "first":
+			temp = df[col].first()	
+		elif func == "last":
+			temp = df.last(col)				
+		elif func == "nth":
+			temp = df[col].nth()
+		elif func == "n":
+			temp = df[col].count()		
+		elif func == "n_distinct":
+			temp = df[col].n_distinct()
+		elif func == "any":
+			temp = df[col].any()
+		elif func == "all":
+			temp = df[col].all()					
+		i+=1
+	temp = str(new) + " " + str(temp)
+	return temp
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	

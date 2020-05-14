@@ -59,3 +59,13 @@ print(data.assign(test = lambda x: x.DN - x.DIST).assign(test1 = lambda x: x.tes
 
 #transmute()
 print(r.transmute(data, "'1ST MRK' = 'YARD LN' - 'DIST'", "'YDLN' = '1ST MRK' + 'DIST'", "'MEGA GAIN' = 'GN/LS' * '10'"))
+#transmute() - pandas
+#data["1ST MRK"] = data["YARD LN"] - data["DIST"])
+#print(data.head())
+
+#summarise() - translatR
+#ORDER: dataframe, new column name, command, column with the data
+print(r.summarise(data, "'mean_of_DIST' = 'mean'('DIST')")) 
+#summarise() - pandas
+print(data.describe())
+print("mean_of_DIST = " + str(data['DIST'].mean()))
