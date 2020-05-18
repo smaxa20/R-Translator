@@ -250,20 +250,18 @@ def summarise(*args):
 	return temp
 
 #sample_n() - take a random sample of rows [size of sample specified in args]
-def sample_n(*args):
-	df = args[0]
-	sampleSize = args[1]
+def sample_n(data, size):
+	df = data
 	length = df.shape[0]
-	sample = random.sample(range(0, length), sampleSize)
+	sample = random.sample(range(0, length), size)
 	df = df.iloc[sample]
 	return df
 	
 #sample_f()
-def sample_f(*args):
-	df = args[0]
-	percentageSize = args[1]
+def sample_f(data, size):
+	df = data
 	length = df.shape[0]
-	numOfSample = math.ceil(percentageSize * length)
+	numOfSample = math.ceil(size * length)
 	sample = random.sample(range(0, length), numOfSample)
 	df = df.iloc[sample]
 	return df
