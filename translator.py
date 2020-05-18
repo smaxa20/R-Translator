@@ -100,7 +100,7 @@ def select(*args):
 def rename(*args):
     #the first argument must be the data frame
     df = args[0]
-    #the following arguments are magic strings with the form: the various column names = what they are to be substituted with
+    #all other arguments are magic strings with this form: old column name = new column name
     i = 1
     while (i < len(args)):
         # Split a condition into it's three parts, the column name, the operator, and the value
