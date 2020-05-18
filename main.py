@@ -15,9 +15,9 @@ del data["index"]
 data = data.dropna(how = "all")
 data = data.fillna(0)
 
-result = "Complete"
 
 #filter() - translatR
+result = "Complete"
 print("Filter **********\n")
 print(r.filter(data, "'GN/LS' >= 10", "'RESULT' ==", result, "'YARD LN' < 0"))
 print()
