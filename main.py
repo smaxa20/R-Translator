@@ -110,5 +110,5 @@ print(r.sample_f(data, 0.1))
 print()
 
 #sample_f() - pandas
-print(data.sample(frac = .1))
+print(data.sample(frac=0.1))
 print()
