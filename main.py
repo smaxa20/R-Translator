@@ -25,6 +25,8 @@ print()
 #filter() - pandas
 print(data.loc[(data["GN/LS"] >= 10) & (data["RESULT"] == result) & (data["YARD LN"] < 0)])
 
+
+
 #arrange() - translatR
 print("\n\nArrange **********\n")
 print(r.arrange(data, "desc(GN/LS)", "DN"))
@@ -32,6 +34,8 @@ print()
 
 #arrange() - pandas
 print(data.sort_values(["GN/LS", "DN"], ascending=[True, False]))
+
+
 
 #select() - translatR
 print("\n\nSelect **********\n")
@@ -41,6 +45,8 @@ print()
 #select() - pandas
 print(data[['ODK','HASH']])
 print()
+
+
 
 #rename() - translatR
 print("\n\nRename **********\n")
@@ -52,6 +58,7 @@ print(data.rename(columns={"ODK":"odk"})) #rename
 print()
 
 
+
 #mutate()
 print("\n\nMutate **********\n")
 print(r.mutate(data, "'1ST MRK' = 'YARD LN' - 'DIST'", "'YDLN' = '1ST MRK' + 'DIST'", "'MEGA GAIN' = 'GN/LS' * '10'"))
@@ -61,8 +68,10 @@ print()
 print(data.assign(test = lambda x: x.DN - x.DIST).assign(test1 = lambda x: x.test + x.DIST).assign(test2 = lambda x: x.DN * 10))
 print()
 
+
+
 #transmute() - translatR
-print("Transmute **********\n")
+print("\n\nTransmute **********\n")
 print(r.transmute(data, "'1ST MRK' = 'YARD LN' - 'DIST'", "'YDLN' = '1ST MRK' + 'DIST'", "'MEGA GAIN' = 'GN/LS' * '10'"))
 print()
 
@@ -73,8 +82,10 @@ tempData = data.rename(columns={"test":"1ST MRK", "test1":"YDLN", "test2":"MEGA 
 print(tempData[['1ST MRK', 'YDLN', 'MEGA GAIN']])
 print()
 
+
+
 #summarise() - translatR
-print("Summarise **********\n")
+print("\n\nSummarise **********\n")
 print(r.summarise(data, "'mean_of_DIST' = 'mean'('DIST')")) #ORDER: dataframe, new column name, command, column with the data
 print()
 
@@ -82,8 +93,10 @@ print()
 print("mean_of_DIST = " + str(data['DIST'].mean()))
 print()
 
+
+
 #sample_n() - translatR
-print("sample_n **********\n")
+print("\n\nsample_n **********\n")
 print(r.sample_n(data, 10))
 print()
 
@@ -91,8 +104,10 @@ print()
 print(data.sample(n=10, random_state=1))
 print()
 
+
+
 #sample_f() - translatR
-print("sample_f **********\n")
+print("\n\nsample_f **********\n")
 print(r.sample_f(data, 0.1))
 print()
 

@@ -253,15 +253,3 @@ def sample_f(*args):
 	sample = random.sample(range(0, length), numOfSample)
 	df = df.iloc[sample]
 	return df
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
