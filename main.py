@@ -39,11 +39,11 @@ print(data.sort_values(["GN/LS", "DN"], ascending=[True, False]))
 
 #select() - translatR
 print("\n\nSelect **********\n")
-print(r.select(data, "ODK", "HASH"))
+print(r.select(data, "GN/LS", "OFF PLAY"))
 print()
 
 #select() - pandas
-print(data[['ODK','HASH']])
+print(data[['GN/LS','OFF PLAY']])
 print()
 
 
