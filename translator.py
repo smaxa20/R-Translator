@@ -258,10 +258,10 @@ def sample_n(data, size):
 	return df
 	
 #sample_f()
-def sample_f(data, size):
+def sample_f(data, frac):
 	df = data
 	length = df.shape[0]
-	numOfSample = math.ceil(size * length)
+	numOfSample = math.ceil(frac * length)
 	sample = random.sample(range(0, length), numOfSample)
 	df = df.iloc[sample]
 	return df
