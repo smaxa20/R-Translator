@@ -65,7 +65,7 @@ print(r.mutate(data, "'1ST MRK' = 'YARD LN' - 'DIST'", "'YDLN' = '1ST MRK' + 'DI
 print()
 
 #mutate() - pandas
-print(data.assign(test = lambda x: x.DN - x.DIST).assign(test1 = lambda x: x.test + x.DIST).assign(test2 = lambda x: x.DN * 10))
+print(data.assign(col1 = lambda x: x.DN - x.DIST).assign(col2 = lambda x: x.test + x.DIST).assign(col3 = lambda x: x.DN * 10))
 print()
 
 
@@ -76,10 +76,8 @@ print(r.transmute(data, "'1ST MRK' = 'YARD LN' - 'DIST'", "'YDLN' = '1ST MRK' + 
 print()
 
 #transmute() - pandas
-tempdata = data
-data = data.assign(test = lambda x: x.DN - x.DIST).assign(test1 = lambda x: x.test + x.DIST).assign(test2 = lambda x: x.DN * 10)
-tempData = data.rename(columns={"test":"1ST MRK", "test1":"YDLN", "test2":"MEGA GAIN"}) #rename
-print(tempData[['1ST MRK', 'YDLN', 'MEGA GAIN']])
+data = data.assign(col1 = lambda x: x.DN - x.DIST).assign(col2 = lambda x: x.test + x.DIST).assign(col3 = lambda x: x.DN * 10)
+print(data[['col1', 'col2', 'col3']])
 print()
 
 
