@@ -50,11 +50,11 @@ print()
 
 #rename() - translatR
 print("\n\nRename **********\n")
-print(r.rename(data, {'ODK':'odk'}, {'HASH':'hash'})) 
+print(r.rename(data, "'ODK' = 'odk'", "'HASH' = 'hash'"))
 print()
 
 #rename() - pandas [rename and then set name back]
-print(data.rename(columns={"ODK":"odk"})) #rename
+print(data.rename(columns={"ODK":"odk", "HASH":"hash"})) #rename
 print()
 
 

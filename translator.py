@@ -94,21 +94,35 @@ def select(*args):
 	# the following arguments are the various column names
 	# grab only those columns
 	df = df.loc[:, args[1:len(args)]]
-	return(df)
-	
+	return df
+
 # Rename any number of select columns
 def rename(*args):
-	df = args[0]
-	#the following arguments are the various column names with what they are to be substituted with
-	conditions = args[1:] 
-	#create a local dictionary to hold the renaming variables
-	argStr = {} 
-	for col in conditions:
-		#update the dictionary
-		argStr.update(col) 
-	#go through renaming process
-	df = df.rename(columns=argStr) 
-	return(df)
+    #the first argument must be the data frame
+    df = args[0]
+    #the following arguments are magic strings with the form: the various column names = what they are to be substituted with
+    i = 1
+    while (i < len(args)):
+        # Split a condition into it's three parts, the column name, the operator, and the value
+        # All column names must be surrounded by '' -> e.g. 'my column'
+        if "'" not in args[i]:
+            return("Invalid column name: All column names must be surrounded by '' -> e.g. 'my column'")
+        separateCol = args[i].split("'")
+        condition = []
+        condition.append(separateCol[1])
+        condition.append(separateCol[2].strip())
+        condition.append(separateCol[3])
+        # If the condition string is of an invalid length, fail out
+        if len(condition) > 3 or len(condition) < 2:
+            return("Invalid argument length: " + str(len(condition)) + " -> " + args[i])
+        op = condition[1]
+        col = condition[0]
+        # If the condition string is of length 2, look for a variable as the next argument and take that as the value
+        val = condition[2]
+        # Wittle down the original dataframe based on the first condition
+        df = df.rename(columns={col : val})
+        i += 1
+    return df
 	
 # Mutate - Add columns and populate with data from existing columns. In can use a column just generated to create a new one in all one call
 def mutate(*args):
